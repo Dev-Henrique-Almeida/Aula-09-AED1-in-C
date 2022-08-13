@@ -36,7 +36,27 @@ void adicionarMatriz(int m, int n, int **matriz)
 void visualizarMatriz(int m, int n, int **matriz)
 {
     int j = 0, i = 0;
-    printf("\n - A matriz sera: \n\n");
+    printf("_______________________________\n");
+    printf("\n          [Matriz A]          \n");
+    printf("_______________________________\n\n");
+    printf("\n - A matriz A sera: \n\n");
+    for (i = 0; i < m; i++)
+    {
+
+        for (j = 0; j < n; j++)
+        {
+
+            printf("%d ", matriz[i][j]);
+        }
+
+        printf("\n");
+    }
+}
+
+void visualizarSomaMatriz(int m, int n, int **matriz)
+{
+    int j = 0, i = 0;
+    printf("\n - A matriz A e B sera: \n\n");
     for (i = 0; i < m; i++)
     {
 
@@ -71,9 +91,9 @@ void visualizarVetor(int m, int n, int *matriz)
 {
     int i, help = 0;
     printf("_______________________________\n");
-    printf("\n          [Nova Matriz]          \n");
+    printf("\n          [Matriz B]          \n");
     printf("_______________________________\n\n");
-    printf(" - Matriz em forma de vetor: \n\n");
+    printf(" - Matriz B em forma de vetor: \n\n");
     printf("[ ");
 
     for (i = 0; i < m * n; i++)
@@ -95,11 +115,28 @@ void visualizarVetor(int m, int n, int *matriz)
     printf("\n");
 }
 
+int **somaMatrizes(int **matrizA, int *matrizB, int m, int n)
+{
+    int **matriz;
+    matriz = gerarMatriz(m, n);
+    int i, j, k = 0;
+    for (i = 0; i < m; i++)
+    {
+        for (j = 0; j < n; j++)
+        {
+            matriz[i][j] = matrizA[i][j] + matrizB[k];
+            k++;
+        }
+    }
+    return matriz;
+}
+
 int main()
 {
-    int m, n;
+    int m, n, o, p;
     int **matriz;
     int *matrizVetor;
+    int **somaMatriz;
 
     // Matriz
     printf("_______________________________\n");
@@ -121,14 +158,38 @@ int main()
     printf("\n      [Gerar nova Matriz]      \n");
     printf("_______________________________\n\n");
     printf("Informe a quantidade de linhas da nova matriz: \n");
-    scanf("%d", &m);
+    scanf("%d", &o);
     printf("Informe a quantidade de colunas da matriz: \n");
-    scanf("%d", &n);
+    scanf("%d", &p);
 
-    matrizVetor = gerarVetor(m, n);
-    adicionarVetor(m, n, matrizVetor);
+    matrizVetor = gerarVetor(o, p);
+    adicionarVetor(o, p, matrizVetor);
     system("cls");
-    visualizarVetor(m, n, matrizVetor);
+    visualizarVetor(o, p, matrizVetor);
+    system("pause");
+    system("cls");
+
+    visualizarMatriz(m, n, matriz);
+
+    visualizarVetor(o, p, matrizVetor);
+
+    system("pause");
+    system("cls");
+    if ((m == o) && (n == p))
+    {
+        somaMatriz = gerarMatriz(m, n);
+        somaMatriz = somaMatrizes(matriz, matrizVetor, m, n);
+        printf("_____________________________________\n");
+        printf("\n        [A soma das matrizes A e B]    \n");
+        printf("_____________________________________\n\n");
+        visualizarSomaMatriz(m, n, somaMatriz);
+    }
+    else
+    {
+        printf("\n Nao e possivel somar as matrizes \npois nao sao do mesmo tamanho.");
+    }
+
+    printf("\n\n Laboratorio 05 - Feito por Henrique de almeida Silva\n\n");
 
     return 0;
 }
